@@ -48,9 +48,15 @@ void outputNumbers(vector<int>& v)
 	}
 }
 
+inline void swap(int * i, int * j)
+{
+	int temp = *i;
+	*i = *j;
+	*j = temp;
+}
+
 void BubbleSort(vector<int>& numbers)
 {
-	int temp;
 	bool done = false;
 	while(!done)
 	{
@@ -60,20 +66,11 @@ void BubbleSort(vector<int>& numbers)
 			if(numbers[index] > numbers[index + 1])
 			{
 				//swap index and next number
-				temp = numbers[index];
-				numbers[index] = numbers[index+1];
-				numbers[index + 1] = temp;
+				swap(&numbers[index], &numbers[index + 1]);
 				done = false;
 			}
 		}
 	}
-}
-
-void swap(int * i, int * j)
-{
-	int temp = *i;
-	*i = *j;
-	*j = temp;
 }
 
 void InsertionSort(vector<int>& numbers)
