@@ -2,17 +2,49 @@
 using namespace std;
 #include "tester.h"
 
+ofstream Tester::logFile;
+unsigned int Tester::testCount = 0;
+
 Tester::Tester(pfunc f, vector<int> p, string n)
 {
+	//cout << n << " Constructor. testCount: [" << testCount << " => ";
 	func = f;
 	param = p;
 	testName = n;
 	pass = false;
+	if(testCount == 0)
+	{
+		logFile.open("log.txt");
+		if(logFile.fail())
+		{
+			cout << "Log failed to open. Continuing without a log." << endl;
+			system("pause");
+		}
+		else
+			logFile << "Log started" << endl;
+	}
+	++testCount;
+	//cout << testCount << "]" << endl;
+}
+
+Tester::Tester(const Tester &orig)
+{
+	//cout << orig.testName << " Copy Constructor. testCount: [" << testCount << " => ";
+	this->func = orig.func;
+	this->param = orig.param;
+	this->testName = orig.testName;
+	this->pass = orig.pass;
+	++testCount;
+	//cout << testCount << "]" << endl;
 }
 
 Tester::~Tester()
 {
-
+	//cout << testName << " Destructor Called. testCount: [" << testCount << " => ";
+	--testCount;
+	if(testCount == 0)
+		logFile.close();
+	//cout << testCount << "]" << endl;
 }
 
 void Tester::RunTest()
@@ -31,7 +63,9 @@ void Tester::OutputTestResults()
 	if(this->hasBeenRun)
 	{
 		cout << endl << this->testName << endl << "Result: " << (this->pass? "PASS" : "FAIL") << endl << this->clocks << " clocks" << endl
-		<< "(" << this->millis << " ms)" << endl;
+			<< "(" << this->millis << " ms)" << endl;
+		logFile << endl << this->testName << endl << "Result: " << (this->pass ? "PASS" : "FAIL") << endl << this->clocks << " clocks" << endl
+			<< "(" << this->millis << " ms)" << endl;
 	}
 	else
 		cout << "Test: \"" << this->testName << "\" has not been run yet!" << endl;

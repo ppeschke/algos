@@ -44,7 +44,7 @@ void outputNumbers(vector<int>& v)
 {
 	for(auto n : v)
 	{
-		cout << n << endl;
+		//cout << n << endl;
 	}
 }
 
