@@ -3,6 +3,7 @@
 
 #include <time.h>
 #include <vector>
+#include <string>
 
 typedef void(*pfunc)(vector<int>&);
 

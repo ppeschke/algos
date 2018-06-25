@@ -2,6 +2,7 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <time.h>
 using namespace std;
 
 void generateFile(string filename)
@@ -14,7 +15,7 @@ void generateFile(string filename)
 		exit(EXIT_FAILURE);
 	}
 	unsigned int number;
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
     for (int i = 0; i < 10000; ++i)
 	{
         number = rand() % 100000;
@@ -54,7 +55,7 @@ void BubbleSort(vector<int>& numbers)
 	while(!done)
 	{
 		done = true;
-		for(int index = 0; index < numbers.size() - 1; ++index)
+		for(unsigned int index = 0; index < numbers.size() - 1; ++index)
 		{
 			if(numbers[index] > numbers[index + 1])
 			{
