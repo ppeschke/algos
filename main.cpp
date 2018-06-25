@@ -5,11 +5,10 @@
 
 int main()
 {
-    vector<int> numbers = readFile("numbers.txt");
+	vector<int> numbers = readFile("numbers.txt");
     list<Tester> tests;
-    tests.push_back(Tester(&outputNumbers, numbers, "Output Function"));
-    tests.push_back(Tester(&BubbleSort, numbers, "Bubble Sort"));
-    tests.push_back(Tester(&outputNumbers, numbers, "Output Function 2"));
+	tests.push_back(Tester(&outputNumbers, numbers, "Output Function", &noVerification));
+	tests.push_back(Tester(&BubbleSort, numbers, "Bubble Sort", &inOrder));
 
 	for(auto& t : tests)
 	{

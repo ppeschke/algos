@@ -8,11 +8,12 @@
 using namespace std;
 
 typedef void(*pfunc)(vector<int>&);
+typedef bool(*pbfunc)(vector<int>&);
 
 class Tester
 {
 public:
-	Tester(pfunc function, vector<int> param, string name);
+	Tester(pfunc function, vector<int> param, string name, pbfunc verifyFunc);
 	Tester(const Tester &orig);
 	~Tester();
 	void RunTest();
@@ -23,6 +24,7 @@ private:
 	static unsigned int testCount;
 	string testName;
 	pfunc func;
+	pbfunc verifyFunc;
 	vector<int> param;
 	time_t clocks;
 	float millis;

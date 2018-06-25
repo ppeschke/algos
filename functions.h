@@ -68,3 +68,19 @@ void BubbleSort(vector<int>& numbers)
 		}
 	}
 }
+
+bool inOrder(vector<int>& numbers)
+{
+	bool sorted = true;
+	for(unsigned int i = 0; i < numbers.size() - 1; ++i)
+	{
+		if(numbers[i] > numbers[i + 1])
+			sorted = false;
+	}
+	return sorted;
+}
+
+bool noVerification(vector<int>& numbers)
+{
+	return true;
+}
