@@ -1,7 +1,7 @@
 #include <iostream>
 #include <list>
 #include "functions.h"
-#include "tester.h"
+#include "testsuite.h"
 
 int main()
 {

@@ -13,19 +13,16 @@ typedef bool(*pbfunc)(vector<int>&);
 class Tester
 {
 public:
-	Tester(pfunc function, vector<int> param, string name, pbfunc verifyFunc);
+	Tester(pfunc function, string name, pbfunc verifyFunc);
 	Tester(const Tester &orig);
 	~Tester();
-	void RunTest();
+	void RunTest(vector<int>& data);
 	void OutputTestResults();
 
 private:
-	static ofstream logFile;
-	static unsigned int testCount;
 	string testName;
 	pfunc func;
 	pbfunc verifyFunc;
-	vector<int> param;
 	time_t clocks;
 	float millis;
 	bool hasBeenRun;
