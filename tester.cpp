@@ -22,7 +22,7 @@ Tester::~Tester()
 {
 }
 
-void Tester::RunTest(vector<int>& data)
+void Tester::RunTest(vector<int> data)
 {
 	clock_t t;
     t = clock();

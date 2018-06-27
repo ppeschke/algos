@@ -18,7 +18,7 @@ public:
 	Tester(pfunc function, string name, pbfunc verifyFunc);
 	Tester(const Tester &orig);
 	~Tester();
-	void RunTest(vector<int>& data);
+	void RunTest(vector<int> data);
 	string getName();
 	time_t getClocks();
 	bool getPass();
