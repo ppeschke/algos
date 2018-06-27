@@ -6,7 +6,7 @@ void TestSuite::addTest(Tester t)
 	tests.push_back(t);
 }
 
-void TestSuite::addData(DataItem& di)
+void TestSuite::addData(DataItem di)
 {
 	dataSets.push_back(di);
 }

@@ -9,7 +9,7 @@ class TestSuite
 {
 public:
 	void addTest(Tester t);
-	void addData(DataItem& di);
+	void addData(DataItem di);
 	void RunTests();
 	void OutputResults();
 	void OutputTSVResults(string filename);

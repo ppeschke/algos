@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "Results.h"
 
 Results::Results(string a, string d, time_t c, bool p)
@@ -14,8 +15,8 @@ Results::~Results()
 
 string Results::getOutputString()
 {
-	char c[10];
-	_itoa_s((int)this->clocks, c, 10);
+	char c[17];
+	sprintf(c, "%d", (int)this->clocks);
 	string s = '\n' + this->algoName + " run on " + this->dataName + "\nResult: " + (this->pass ? "PASS" : "FAIL") + '\n';
 	s += c;
 	s += " clocks\n";
