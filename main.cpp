@@ -17,7 +17,7 @@ int main()
 	ts.addData(DataItem(readFile("smallNumbers.txt"), "10,000 small numbers"));
 
 	ts.RunTests();
-	ts.OutputResults();
+	//ts.OutputResults();
 	ts.OutputTSVResults("results.tsv");
 	
 	system("pause");

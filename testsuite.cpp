@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "testsuite.h"
 
 void TestSuite::addTest(Tester t)
@@ -17,8 +18,10 @@ void TestSuite::RunTests()
 	{
 		for(auto& algo : tests)
 		{
-			cout << "Running " << algo.getName() << " on " << d.getName() << endl;
+			string s = "Running " + algo.getName() + " on " + d.getName();
+			cout << left << setw(50) << s;
 			algo.RunTest(d.getData());
+			cout << '[' << (algo.getPass() ? "PASS" : "FAIL") << ']' << endl;
 			d.addResults(Results(algo.getName(), d.getName(), algo.getClocks(), algo.getPass()));
 		}
 	}
