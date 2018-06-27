@@ -2,10 +2,9 @@
 using namespace std;
 #include "tester.h"
 
-Tester::Tester(pfunc f, vector<int> p, string n, pbfunc vF)
+Tester::Tester(pfunc f, string n, pbfunc vF)
 {
 	func = f;
-	param = p;
 	testName = n;
 	verifyFunc = vF;
 	pass = false;
@@ -14,7 +13,6 @@ Tester::Tester(pfunc f, vector<int> p, string n, pbfunc vF)
 Tester::Tester(const Tester &orig)
 {
 	this->func = orig.func;
-	this->param = orig.param;
 	this->verifyFunc = orig.verifyFunc;
 	this->testName = orig.testName;
 	this->pass = orig.pass;
@@ -24,25 +22,28 @@ Tester::~Tester()
 {
 }
 
-void Tester::RunTest()
+void Tester::RunTest(vector<int>& data)
 {
 	clock_t t;
     t = clock();
-    func(param);
+    func(data);
     t = clock() - t;
     this->clocks = t;
     this->millis = (((float)t)/(CLOCKS_PER_SEC/1000));  //outputs milliseconds
-	this->pass = this->verifyFunc(param);
+	this->pass = this->verifyFunc(data);
 	this->hasBeenRun = true;
 }
 
-void Tester::OutputTestResults()
+string Tester::getName()
 {
-	if(this->hasBeenRun)
-	{
-		cout << endl << this->testName << endl << "Result: " << (this->pass? "PASS" : "FAIL") << endl << this->clocks << " clocks" << endl
-			<< "(" << this->millis << " ms)" << endl;
-	}
-	else
-		cout << "Test: \"" << this->testName << "\" has not been run yet!" << endl;
+	return this->testName;
+}
+
+time_t Tester::getClocks()
+{
+	return this->clocks;
+}
+bool Tester::getPass()
+{
+	return this->pass;
 }

@@ -7,6 +7,8 @@
 #include <fstream>
 using namespace std;
 
+#include "Results.h"
+
 typedef void(*pfunc)(vector<int>&);
 typedef bool(*pbfunc)(vector<int>&);
 
@@ -17,7 +19,9 @@ public:
 	Tester(const Tester &orig);
 	~Tester();
 	void RunTest(vector<int>& data);
-	void OutputTestResults();
+	string getName();
+	time_t getClocks();
+	bool getPass();
 
 private:
 	string testName;

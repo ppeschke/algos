@@ -5,17 +5,19 @@
 
 int main()
 {
-	vector<int> numbers = readFile("numbers.txt");
-    list<Tester> tests;
-	tests.push_back(Tester(&BubbleSort, numbers, "Bubble Sort", &inOrder));
-	tests.push_back(Tester(&InsertionSort, numbers, "Insertion Sort", &inOrder));
-	tests.push_back(Tester(&selectionSort, numbers, "Selection Sort", &inOrder));
+	TestSuite ts;
+	ts.addTest(Tester(&BubbleSort, "Bubble Sort", &inOrder));
+	ts.addTest(Tester(&InsertionSort, "Insertion Sort", &inOrder));
+	ts.addTest(Tester(&selectionSort, "Selection Sort", &inOrder));
+	ts.addTest(Tester(&STLSort, "Standard Template Library Sort", &inOrder));
 
-	for(auto& t : tests)
-	{
-		t.RunTest();
-        t.OutputTestResults();
-	}
+	ts.addData(DataItem(readFile("shortList.txt"), "1000 numbers randomly distributed"));
+	ts.addData(DataItem(readFile("numbers.txt"), "10000 numbers randomly distributed."));
+
+	ts.RunTests();
+	ts.OutputResults();
+	ts.OutputTSVResults("results.tsv");
+	
 	system("pause");
 	return 0;
 }

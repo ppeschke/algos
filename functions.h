@@ -3,9 +3,10 @@
 #include <random>
 #include <vector>
 #include <time.h>
+#include <algorithm>
 using namespace std;
 
-void generateFile(string filename)
+void generateFile(string filename, unsigned int range, unsigned int count)
 {
 	ofstream outfile;
 	outfile.open(filename.c_str());
@@ -16,9 +17,9 @@ void generateFile(string filename)
 	}
 	unsigned int number;
 	srand((unsigned int)time(NULL));
-    for (int i = 0; i < 10000; ++i)
+    for (unsigned int i = 0; i < count; ++i)
 	{
-        number = rand() % 100000;
+        number = rand() % range;
 		outfile << number << endl;
 	}
 	outfile.close();
@@ -112,6 +113,11 @@ void selectionSort(vector<int>& numbers)
 		// Swap the found minimum element with the first element
 		swap(&numbers[minIndex], &numbers[i]);
 	}
+}
+
+void STLSort(vector<int>& numbers)
+{
+	sort(numbers.begin(), numbers.end());
 }
 
 bool inOrder(vector<int>& numbers)
