@@ -10,10 +10,11 @@ int main()
 	ts.addTest(Tester(&InsertionSort, "Insertion Sort", &inOrder));
 	ts.addTest(Tester(&selectionSort, "Selection Sort", &inOrder));
 	ts.addTest(Tester(&STLSort, "STL Sort", &inOrder));
+	ts.addTest(Tester(&CountSort, "Count Sort", &inOrder));
 
-	ts.addData(DataItem(readFile("shortList.txt"), "1,000 numbers randomly distributed"));
-	ts.addData(DataItem(readFile("numbers.txt"), "10,000 numbers randomly distributed"));
-	ts.addData(DataItem(readFile("smallNumbers.txt"), "10,000 small numbers evenly distributed"));
+	ts.addData(DataItem(readFile("shortList.txt"), "1,000 numbers"));
+	ts.addData(DataItem(readFile("numbers.txt"), "10,000 numbers"));
+	ts.addData(DataItem(readFile("smallNumbers.txt"), "10,000 small numbers"));
 
 	ts.RunTests();
 	ts.OutputResults();

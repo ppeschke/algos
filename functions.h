@@ -74,6 +74,49 @@ void BubbleSort(vector<int>& numbers)
 	}
 }
 
+unsigned int findMax(vector<int>& numbers)
+{
+	int max;
+	if(numbers.size() > 0)
+	{
+		max = numbers[0];
+		for(auto& n : numbers)
+		{
+			if(n > max)
+				max = n;
+		}
+	}
+	return (unsigned int)max;
+}
+
+void CountSort(vector<int>& numbers)
+{
+	unsigned int size = findMax(numbers);
+	++size;		//files include 0's
+	int* counts = new int[size];
+	for(unsigned int i = 0; i < size; ++i)
+	{
+		counts[i] = 0;
+	}
+	for(auto& n : numbers)
+	{
+		++counts[n];
+	}
+	unsigned int countIndex = 0;
+	unsigned int index = 0;
+	while(countIndex < size)
+	{
+		while(counts[countIndex] > 0)
+		{
+			numbers[index++] = countIndex;
+			--counts[countIndex];
+		}
+		++countIndex;
+	}
+	
+	delete [] counts;
+}
+
 void InsertionSort(vector<int>& numbers)
 {
 	unsigned int i = 1;
