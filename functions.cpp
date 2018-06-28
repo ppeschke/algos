@@ -4,8 +4,10 @@
 #include <random>
 #include <time.h>
 #include <algorithm>
+#include <stack>
 
 #include "functions.h"
+#include "BinaryTree.h"
 
 void generateFile(string filename, unsigned int range, unsigned int count)
 {
@@ -70,6 +72,76 @@ inline void swap(int * i, int * j)
 	int temp = *i;
 	*i = *j;
 	*j = temp;
+}
+
+enum places { beforeScan, scannedLeft, scannedValue, scannedRight };
+struct Traversal
+{
+	Node* node;
+	int place;
+	Traversal(Node* n, places p)
+	{
+		node = n; place = p;
+	}
+};
+
+void TreeSort(vector<int>& numbers)
+{
+	BinaryTree bt;
+	//put all numbers into a tree
+	for(auto& n : numbers)
+	{
+		bt.Insert(new Node(n));
+	}
+	unsigned int instances;
+	Traversal currentContext(bt.getRoot(), beforeScan);
+	stack<Traversal> parents;
+	int index = 0;
+	bool done = false;
+	//iterate a depth-first traversal
+	while(!done)
+	{
+		if(currentContext.place == beforeScan)
+		{
+			currentContext.place = scannedLeft;
+			if(currentContext.node->getLeft() != nullptr)
+			{
+				parents.push(currentContext);
+				currentContext = Traversal(currentContext.node->getLeft(), beforeScan);
+			}
+		}
+		if(currentContext.place == scannedLeft)
+		{
+			currentContext.place = scannedValue;
+			instances = currentContext.node->getInstances();
+			while(instances > 0)
+			{
+				numbers[index++] = currentContext.node->getValue();
+				--instances;
+			}
+		}
+		if(currentContext.place == scannedValue)
+		{
+			currentContext.place = scannedRight;
+			if(currentContext.node->getRight() != nullptr)
+			{
+				parents.push(currentContext);
+				currentContext.node = currentContext.node->getRight();
+			}
+		}
+		if(currentContext.place == scannedRight)
+		{
+			if(parents.size() > 0)
+			{
+				currentContext = parents.top();
+				parents.pop();
+			}
+			else
+			{
+				done = true;
+			}
+		}
+	}
 }
 
 void BubbleSort(vector<int>& numbers)
