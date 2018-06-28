@@ -15,7 +15,8 @@ int main()
 	ts.addData(DataItem(readFile("shortList.txt"), "1,000 numbers"));
 	ts.addData(DataItem(readFile("numbers.txt"), "10,000 numbers"));
 	ts.addData(DataItem(readFile("smallNumbers.txt"), "10,000 small numbers"));
-	ts.addData(DataItem(readFile("almostSorted.txt"), "10,000 numbers almost Sorted"));
+	ts.addData(DataItem(readFile("almostSorted.txt"), "10,000 numbers almost sorted"));
+	ts.addData(DataItem(readFile("descending.txt"), "10,000 numbers descending"));
 
 	ts.RunTests();
 	ts.OutputTSVResults("results.tsv");
