@@ -3,7 +3,6 @@
 
 #include "tester.h"
 #include "dataitem.h"
-#include "Results.h"
 
 class TestSuite
 {

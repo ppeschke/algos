@@ -19,7 +19,7 @@ void TestSuite::RunTests()
 		for(auto& algo : tests)
 		{
 			string s = "Running " + algo.getName() + " on " + d.getName();
-			cout << left << setw(50) << s;
+			cout << left << setw(65) << s;
 			algo.RunTest(d.getData());
 			cout << '[' << (algo.getPass() ? "PASS" : "FAIL") << ']' << endl;
 			d.addResults(Results(algo.getName(), d.getName(), algo.getClocks(), algo.getPass()));

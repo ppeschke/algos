@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "tester.h"
+#include "functions.h"
 
 Tester::Tester(pfunc f, string n, pbfunc vF)
 {
