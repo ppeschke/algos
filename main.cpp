@@ -11,7 +11,8 @@ int main()
 	ts.addTest(Tester(&selectionSort, "Selection Sort", &inOrder));
 	ts.addTest(Tester(&CountSort, "Count Sort", &inOrder));
 	ts.addTest(Tester(&STLSort, "STL Sort", &inOrder));*/
-	ts.addTest(Tester(&TreeSort, "Tree Sort", &inOrder));
+	ts.addTest(Tester(&TreeSortIterative, "Iterative Tree Sort", &inOrder));
+	//ts.addTest(Tester(&TreeSortRecursive, "Recursive Tree Sort", &inOrder));
 
 	ts.addData(DataItem(readFile("shortList.txt"), "1,000 numbers"));
 	/*ts.addData(DataItem(readFile("numbers.txt"), "10,000 numbers"));

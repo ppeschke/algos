@@ -2,7 +2,7 @@
 
 #include "Node.h"
 
-enum places { beforeScan, scannedLeft, scannedValue, scannedRight };
+enum places { beforeScan, scannedLeft, scannedValue, scannedRight, beforeDestroy, destroyedLeft, destroyedRight, destroyedValue };
 struct TraversalContext
 {
 	Node* node;
@@ -16,13 +16,16 @@ struct TraversalContext
 class BinaryTree
 {
 public:
-	BinaryTree();
+	BinaryTree(bool recursive = true);
 	~BinaryTree();
 
 	void Insert(Node* n);
 	Node* getRoot();
+	void DestroyNodeRecursive(Node* n);
+	void InsertRecursive(Node* n, Node* i);
 
 private:
 	Node* root;
+	bool recursive;
 };
 

@@ -3,77 +3,123 @@ using namespace std;
 
 #include "BinaryTree.h"
 
-BinaryTree::BinaryTree()
+BinaryTree::BinaryTree(bool r)
 {
+	recursive = r;
 	root = nullptr;
 }
 
+void BinaryTree::DestroyNodeRecursive(Node* n)
+{
+	if(n == nullptr)
+		return;
+	DestroyNodeRecursive(n->getLeft());
+	DestroyNodeRecursive(n->getRight());
+	delete n;
+	return;
+}
 
 BinaryTree::~BinaryTree()
 {
-	Node* currentNode = root;
-	stack<Node*> parents;
-	while(root != nullptr)
+	if(recursive)
+		DestroyNodeRecursive(root);
+	else
 	{
-		if(currentNode->getLeft() != nullptr)
+		TraversalContext currentContext(root, beforeDestroy);
+		stack<Node*> parents;
+		while(root != nullptr)
 		{
-			parents.push(currentNode);
-			currentNode = currentNode->getLeft();
-		}
-		else if(currentNode->getRight() != nullptr)
-		{
-			parents.push(currentNode);
-			currentNode = currentNode->getRight();
-		}
-		else
-		{
-			delete currentNode;
-			if(parents.size() > 0)
+			if(currentContext.node->getLeft() != nullptr)
 			{
-				currentNode = parents.top();
-				parents.pop();
+				parents.push(currentContext.node);
+				currentContext.node = currentContext.node->getLeft();
+			}
+			else if(currentContext.node->getRight() != nullptr)
+			{
+				parents.push(currentContext.node);
+				currentContext.node = currentContext.node->getRight();
 			}
 			else
-				root = nullptr;
+			{
+				delete currentContext.node;
+				if(parents.size() > 0)
+				{
+					currentContext.node = parents.top();
+					parents.pop();
+				}
+				else
+					root = nullptr;
+			}
 		}
 	}
 }
 
+void BinaryTree::InsertRecursive(Node* current, Node* nodeToInsert)
+{
+	if(nodeToInsert->getValue() < current->getValue())
+	{
+		if(current->getLeft() != nullptr)
+			InsertRecursive(current->getLeft(), nodeToInsert);
+		else
+			current->setLeft(nodeToInsert);
+	}
+	else if(nodeToInsert->getValue() > current->getValue())
+	{
+		if(current->getRight() != nullptr)
+			InsertRecursive(current->getRight(), nodeToInsert);
+		else
+			current->setRight(nodeToInsert);
+	}
+	else	//equal
+		current->incrementInstances();
+	return;
+}
+
 void BinaryTree::Insert(Node * nodeToInsert)
 {
-	Node* currentNode = root;
-	bool done = false;
-	while(!done)
+	if(recursive)
 	{
-		if(currentNode == nullptr)	//inserting at root
-		{
+		if(root == nullptr)
 			root = nodeToInsert;
-			done = true;
-		}
-		else if (nodeToInsert->getValue() == currentNode->getValue())
+		else
+			InsertRecursive(root, nodeToInsert);
+	}
+	else
+	{
+		Node* currentNode = root;
+		bool done = false;
+		while(!done)
 		{
-			currentNode->incrementInstances();
-			done = true;
-		}
-		else if(nodeToInsert->getValue() < currentNode->getValue())
-		{
-			if(currentNode->getLeft() == nullptr)
+			if(currentNode == nullptr)	//inserting at root
 			{
-				currentNode->setLeft(nodeToInsert);
+				root = nodeToInsert;
 				done = true;
 			}
-			else
-				currentNode = currentNode->getLeft();
-		}
-		else if(nodeToInsert->getValue() > currentNode->getValue())
-		{
-			if(currentNode->getRight() == nullptr)
+			else if (nodeToInsert->getValue() == currentNode->getValue())
 			{
-				currentNode->setRight(nodeToInsert);
+				currentNode->incrementInstances();
 				done = true;
 			}
-			else
-				currentNode = currentNode->getRight();
+			else if(nodeToInsert->getValue() < currentNode->getValue())
+			{
+				if(currentNode->getLeft() == nullptr)
+				{
+					currentNode->setLeft(nodeToInsert);
+					done = true;
+				}
+				else
+					currentNode = currentNode->getLeft();
+			}
+			else if(nodeToInsert->getValue() > currentNode->getValue())
+			{
+				if(currentNode->getRight() == nullptr)
+				{
+					currentNode->setRight(nodeToInsert);
+					done = true;
+				}
+				else
+					currentNode = currentNode->getRight();
+			}
 		}
 	}
 }

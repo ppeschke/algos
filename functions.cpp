@@ -74,9 +74,34 @@ inline void swap(int * i, int * j)
 	*j = temp;
 }
 
-void TreeSort(vector<int>& numbers)
+void fillList(Node* currentNode, vector<int>& numbers, unsigned int index)
 {
-	BinaryTree bt;
+	if(currentNode == nullptr)
+		return;
+	fillList(currentNode->getLeft(), numbers, index);
+	unsigned int instances = currentNode->getInstances();
+	while(instances > 0)
+	{
+		numbers[index++] = currentNode->getValue();
+		--instances;
+	}
+	fillList(currentNode->getRight(), numbers, index);
+}
+
+void TreeSortRecursive(vector<int>& numbers)
+{
+	BinaryTree bt(false);
+	//put all numbers into a tree
+	for(auto& n : numbers)
+	{
+		bt.Insert(new Node(n));
+	}
+	fillList(bt.getRoot(), numbers, 0);
+}
+
+void TreeSortIterative(vector<int>& numbers)
+{
+	BinaryTree bt(false);
 	//put all numbers into a tree
 	for(auto& n : numbers)
 	{
