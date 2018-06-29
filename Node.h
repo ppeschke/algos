@@ -5,37 +5,37 @@ public:
 	Node(int v);
 	~Node();
 
-	int Node::getValue()
+	int getValue()
 	{
 		return value;
 	}
 
-	Node* Node::getLeft()
+	Node* getLeft()
 	{
 		return left;
 	}
 
-	Node* Node::getRight()
+	Node* getRight()
 	{
 		return right;
 	}
 
-	void Node::setLeft(Node* l)
+	void setLeft(Node* l)
 	{
 		left = l;
 	}
 
-	void Node::setRight(Node* r)
+	void setRight(Node* r)
 	{
 		right = r;
 	}
 
-	void Node::incrementInstances()
+	void incrementInstances()
 	{
 		++instances;
 	}
 
-	unsigned int Node::getInstances()
+	unsigned int getInstances()
 	{
 		return instances;
 	}

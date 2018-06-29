@@ -2,6 +2,17 @@
 
 #include "Node.h"
 
+enum places { beforeScan, scannedLeft, scannedValue, scannedRight };
+struct TraversalContext
+{
+	Node* node;
+	int place;
+	TraversalContext(Node* n, places p)
+	{
+		node = n; place = p;
+	}
+};
+
 class BinaryTree
 {
 public:

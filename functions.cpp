@@ -74,17 +74,6 @@ inline void swap(int * i, int * j)
 	*j = temp;
 }
 
-enum places { beforeScan, scannedLeft, scannedValue, scannedRight };
-struct Traversal
-{
-	Node* node;
-	int place;
-	Traversal(Node* n, places p)
-	{
-		node = n; place = p;
-	}
-};
-
 void TreeSort(vector<int>& numbers)
 {
 	BinaryTree bt;
@@ -94,8 +83,8 @@ void TreeSort(vector<int>& numbers)
 		bt.Insert(new Node(n));
 	}
 	unsigned int instances;
-	Traversal currentContext(bt.getRoot(), beforeScan);
-	stack<Traversal> parents;
+	TraversalContext currentContext(bt.getRoot(), beforeScan);
+	stack<TraversalContext> parents;
 	int index = 0;
 	bool done = false;
 	//iterate a depth-first traversal
@@ -107,7 +96,7 @@ void TreeSort(vector<int>& numbers)
 			if(currentContext.node->getLeft() != nullptr)
 			{
 				parents.push(currentContext);
-				currentContext = Traversal(currentContext.node->getLeft(), beforeScan);
+				currentContext = TraversalContext(currentContext.node->getLeft(), beforeScan);
 			}
 		}
 		if(currentContext.place == scannedLeft)
