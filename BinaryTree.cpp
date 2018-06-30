@@ -26,25 +26,33 @@ BinaryTree::~BinaryTree()
 	else
 	{
 		TraversalContext currentContext(root, beforeDestroy);
-		stack<Node*> parents;
+		stack<TraversalContext> parents;
 		while(root != nullptr)
 		{
-			if(currentContext.node->getLeft() != nullptr)
+			if(currentContext.place == beforeDestroy)
 			{
-				parents.push(currentContext.node);
-				currentContext.node = currentContext.node->getLeft();
+				currentContext.place = destroyedLeft;
+				if(currentContext.node->getLeft() != nullptr)
+				{
+					parents.push(currentContext);
+					currentContext = TraversalContext(currentContext.node->getLeft(), beforeDestroy);
+				}
 			}
-			else if(currentContext.node->getRight() != nullptr)
+			else if(currentContext.place == destroyedLeft)
 			{
-				parents.push(currentContext.node);
-				currentContext.node = currentContext.node->getRight();
+				currentContext.place = destroyedRight;
+				if(currentContext.node->getRight() != nullptr)
+				{
+					parents.push(currentContext);
+					currentContext = TraversalContext(currentContext.node->getRight(), beforeDestroy);
+				}
 			}
-			else
+			else if(currentContext.place == destroyedRight)
 			{
 				delete currentContext.node;
 				if(parents.size() > 0)
 				{
-					currentContext.node = parents.top();
+					currentContext = parents.top();
 					parents.pop();
 				}
 				else

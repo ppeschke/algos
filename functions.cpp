@@ -74,29 +74,30 @@ inline void swap(int * i, int * j)
 	*j = temp;
 }
 
-void fillList(Node* currentNode, vector<int>& numbers, unsigned int index)
+void fillListRecursive(Node* currentNode, vector<int>& numbers, unsigned int& index)
 {
 	if(currentNode == nullptr)
 		return;
-	fillList(currentNode->getLeft(), numbers, index);
+	fillListRecursive(currentNode->getLeft(), numbers, index);
 	unsigned int instances = currentNode->getInstances();
 	while(instances > 0)
 	{
 		numbers[index++] = currentNode->getValue();
 		--instances;
 	}
-	fillList(currentNode->getRight(), numbers, index);
+	fillListRecursive(currentNode->getRight(), numbers, index);
 }
 
 void TreeSortRecursive(vector<int>& numbers)
 {
-	BinaryTree bt(false);
+	BinaryTree bt;
 	//put all numbers into a tree
 	for(auto& n : numbers)
 	{
 		bt.Insert(new Node(n));
 	}
-	fillList(bt.getRoot(), numbers, 0);
+	unsigned int index = 0;
+	fillListRecursive(bt.getRoot(), numbers, index);
 }
 
 void TreeSortIterative(vector<int>& numbers)
@@ -140,7 +141,7 @@ void TreeSortIterative(vector<int>& numbers)
 			if(currentContext.node->getRight() != nullptr)
 			{
 				parents.push(currentContext);
-				currentContext.node = currentContext.node->getRight();
+				currentContext = TraversalContext(currentContext.node->getRight(), beforeScan);
 			}
 		}
 		if(currentContext.place == scannedRight)
