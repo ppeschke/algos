@@ -25,11 +25,19 @@ Tester::~Tester()
 
 void Tester::RunTest(vector<int> data)
 {
+	vector<int> origData = data;
+	time_t testTimes[3];
 	clock_t t;
-    t = clock();
-    func(data);
-    t = clock() - t;
-    this->clocks = t;
+	for(unsigned int i = 0; i < 3; ++i)
+	{
+		t = clock();
+		func(data);
+		t = clock() - t;
+		testTimes[i] = t;
+		if(i != 2)
+			data = origData;
+	}
+    this->clocks = (testTimes[0] + testTimes[1] + testTimes[2])/3;
     this->millis = (((float)t)/(CLOCKS_PER_SEC/1000));  //outputs milliseconds
 	this->pass = this->verifyFunc(data);
 	this->hasBeenRun = true;
