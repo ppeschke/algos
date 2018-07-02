@@ -8,8 +8,8 @@ int main()
 	TestSuite ts;
 	ts.addTest(Tester(&BubbleSort, "Bubble Sort", &inOrder));
 	ts.addTest(Tester(&InsertionSort, "Insertion Sort", &inOrder));
-	ts.addTest(Tester(&selectionSort, "Selection Sort", &inOrder));
-	ts.addTest(Tester(&CountSort, "Count Sort", &inOrder));
+	ts.addTest(Tester(&SelectionSort, "Selection Sort", &inOrder));
+	ts.addTest(Tester(&CountSort, "Counting Sort", &inOrder));
 	ts.addTest(Tester(&STLSort, "STL Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortIterative, "Iterative Tree Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortRecursive, "Recursive Tree Sort", &inOrder));

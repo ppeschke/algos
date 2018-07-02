@@ -116,17 +116,17 @@ void TreeSortIterative(vector<int>& numbers)
 	//iterate a depth-first traversal
 	while(!done)
 	{
-		if(currentContext.place == beforeScan)
+		switch(currentContext.place)
 		{
+		case beforeScan:
 			currentContext.place = scannedLeft;
 			if(currentContext.node->getLeft() != nullptr)
 			{
 				parents.push(currentContext);
 				currentContext = TraversalContext(currentContext.node->getLeft(), beforeScan);
 			}
-		}
-		if(currentContext.place == scannedLeft)
-		{
+			break;
+		case scannedLeft:
 			currentContext.place = scannedValue;
 			instances = currentContext.node->getInstances();
 			while(instances > 0)
@@ -134,18 +134,16 @@ void TreeSortIterative(vector<int>& numbers)
 				numbers[index++] = currentContext.node->getValue();
 				--instances;
 			}
-		}
-		if(currentContext.place == scannedValue)
-		{
+			break;
+		case scannedValue:
 			currentContext.place = scannedRight;
 			if(currentContext.node->getRight() != nullptr)
 			{
 				parents.push(currentContext);
 				currentContext = TraversalContext(currentContext.node->getRight(), beforeScan);
 			}
-		}
-		if(currentContext.place == scannedRight)
-		{
+			break;
+		case scannedRight:
 			if(parents.size() > 0)
 			{
 				currentContext = parents.top();
@@ -155,6 +153,7 @@ void TreeSortIterative(vector<int>& numbers)
 			{
 				done = true;
 			}
+			break;
 		}
 	}
 }
@@ -240,7 +239,7 @@ void InsertionSort(vector<int>& numbers)
 	return;
 }
 
-void selectionSort(vector<int>& numbers)
+void SelectionSort(vector<int>& numbers)
 {
 	unsigned int i, j, minIndex;
 	unsigned int size = numbers.size();
