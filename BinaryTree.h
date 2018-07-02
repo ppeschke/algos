@@ -22,7 +22,9 @@ public:
 	void Insert(Node* n);
 	Node* getRoot();
 	void DestroyNodeRecursive(Node* n);
+	void DestroyNodeIterative(Node* n);
 	void InsertRecursive(Node* n, Node* i);
+	void InsertIterative(Node* nodeToInsert);
 
 private:
 	Node* root;

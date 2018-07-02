@@ -19,46 +19,51 @@ void BinaryTree::DestroyNodeRecursive(Node* n)
 	return;
 }
 
+void BinaryTree::DestroyNodeIterative(Node* root)
+{
+	TraversalContext currentContext(root, beforeDestroy);
+	stack<TraversalContext> parents;
+	while (root != nullptr)
+	{
+		switch (currentContext.place)
+		{
+		case beforeDestroy:
+			currentContext.place = destroyedLeft;
+			if (currentContext.node->getLeft() != nullptr)
+			{
+				parents.push(currentContext);
+				currentContext = TraversalContext(currentContext.node->getLeft(), beforeDestroy);
+			}
+			break;
+		case destroyedLeft:
+			currentContext.place = destroyedRight;
+			if (currentContext.node->getRight() != nullptr)
+			{
+				parents.push(currentContext);
+				currentContext = TraversalContext(currentContext.node->getRight(), beforeDestroy);
+			}
+			break;
+		case destroyedRight:
+			delete currentContext.node;
+			if (parents.size() > 0)
+			{
+				currentContext = parents.top();
+				parents.pop();
+			}
+			else
+				root = nullptr;
+			break;
+		}
+	}
+}
+
 BinaryTree::~BinaryTree()
 {
 	if(recursive)
 		DestroyNodeRecursive(root);
 	else
 	{
-		TraversalContext currentContext(root, beforeDestroy);
-		stack<TraversalContext> parents;
-		while(root != nullptr)
-		{
-			switch(currentContext.place)
-			{
-			case beforeDestroy:
-				currentContext.place = destroyedLeft;
-				if(currentContext.node->getLeft() != nullptr)
-				{
-					parents.push(currentContext);
-					currentContext = TraversalContext(currentContext.node->getLeft(), beforeDestroy);
-				}
-				break;
-			case destroyedLeft:
-				currentContext.place = destroyedRight;
-				if(currentContext.node->getRight() != nullptr)
-				{
-					parents.push(currentContext);
-					currentContext = TraversalContext(currentContext.node->getRight(), beforeDestroy);
-				}
-				break;
-			case destroyedRight:
-				delete currentContext.node;
-				if(parents.size() > 0)
-				{
-					currentContext = parents.top();
-					parents.pop();
-				}
-				else
-					root = nullptr;
-					break;
-			}
-		}
+		DestroyNodeIterative(root);
 	}
 }
 
@@ -83,6 +88,45 @@ void BinaryTree::InsertRecursive(Node* current, Node* nodeToInsert)
 	return;
 }
 
+void BinaryTree::InsertIterative(Node* nodeToInsert)
+{
+	Node* currentNode = root;
+	bool done = false;
+	while (!done)
+	{
+		if (currentNode == nullptr)	//inserting at root
+		{
+			root = nodeToInsert;
+			done = true;
+		}
+		else if (nodeToInsert->getValue() == currentNode->getValue())
+		{
+			currentNode->incrementInstances();
+			done = true;
+		}
+		else if (nodeToInsert->getValue() < currentNode->getValue())
+		{
+			if (currentNode->getLeft() == nullptr)
+			{
+				currentNode->setLeft(nodeToInsert);
+				done = true;
+			}
+			else
+				currentNode = currentNode->getLeft();
+		}
+		else if (nodeToInsert->getValue() > currentNode->getValue())
+		{
+			if (currentNode->getRight() == nullptr)
+			{
+				currentNode->setRight(nodeToInsert);
+				done = true;
+			}
+			else
+				currentNode = currentNode->getRight();
+		}
+	}
+}
+
 void BinaryTree::Insert(Node * nodeToInsert)
 {
 	if(recursive)
@@ -93,43 +137,7 @@ void BinaryTree::Insert(Node * nodeToInsert)
 			InsertRecursive(root, nodeToInsert);
 	}
 	else
-	{
-		Node* currentNode = root;
-		bool done = false;
-		while(!done)
-		{
-			if(currentNode == nullptr)	//inserting at root
-			{
-				root = nodeToInsert;
-				done = true;
-			}
-			else if (nodeToInsert->getValue() == currentNode->getValue())
-			{
-				currentNode->incrementInstances();
-				done = true;
-			}
-			else if(nodeToInsert->getValue() < currentNode->getValue())
-			{
-				if(currentNode->getLeft() == nullptr)
-				{
-					currentNode->setLeft(nodeToInsert);
-					done = true;
-				}
-				else
-					currentNode = currentNode->getLeft();
-			}
-			else if(nodeToInsert->getValue() > currentNode->getValue())
-			{
-				if(currentNode->getRight() == nullptr)
-				{
-					currentNode->setRight(nodeToInsert);
-					done = true;
-				}
-				else
-					currentNode = currentNode->getRight();
-			}
-		}
-	}
+		InsertIterative(nodeToInsert);
 }
 
 Node * BinaryTree::getRoot()
