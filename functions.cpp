@@ -236,6 +236,22 @@ void STLSort(vector<int>& numbers)
 	sort(numbers.begin(), numbers.end());
 }
 
+void inssort2(vector<int>& numbers, unsigned int start, unsigned int size, unsigned int incr)
+{
+	for(unsigned int i = start + incr; i < size; i += incr)
+		for(unsigned int j = i; j >= incr && numbers[j] < numbers[j - incr]; j -= incr)
+			swap(&numbers[j], &numbers[j - incr]);
+}
+
+void ShellSort(vector<int>& numbers)
+{
+	unsigned int size = numbers.size();
+	for(unsigned int i = size / 2; i > 2; i /= 2)	//for each increment
+		for(unsigned int j = 0; j < i; ++j)			//sort each sublist
+			inssort2(numbers, j, size - j, i);
+	inssort2(numbers, 0, size, 1);
+}
+
 bool inOrder(vector<int>& numbers)
 {
 	bool sorted = true;

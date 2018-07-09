@@ -6,13 +6,14 @@
 int main()
 {
 	TestSuite ts;
-	ts.addTest(Tester(&BubbleSort, "Bubble Sort", &inOrder));
-	ts.addTest(Tester(&InsertionSort, "Insertion Sort", &inOrder));
-	ts.addTest(Tester(&SelectionSort, "Selection Sort", &inOrder));
-	ts.addTest(Tester(&CountSort, "Counting Sort", &inOrder));
 	ts.addTest(Tester(&STLSort, "STL Sort", &inOrder));
-	ts.addTest(Tester(&TreeSortIterative, "Iterative Tree Sort", &inOrder));
+	ts.addTest(Tester(&CountSort, "Counting Sort", &inOrder));
+	ts.addTest(Tester(&ShellSort, "Shell Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortRecursive, "Recursive Tree Sort", &inOrder));
+	ts.addTest(Tester(&TreeSortIterative, "Iterative Tree Sort", &inOrder));
+	ts.addTest(Tester(&SelectionSort, "Selection Sort", &inOrder));
+	ts.addTest(Tester(&InsertionSort, "Insertion Sort", &inOrder));
+	ts.addTest(Tester(&BubbleSort, "Bubble Sort", &inOrder));
 
 	ts.addData(DataItem(readFile("shortList.txt"), "1,000 numbers"));
 	ts.addData(DataItem(readFile("numbers.txt"), "10,000 numbers"));
