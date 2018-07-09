@@ -160,20 +160,11 @@ void TreeSortIterative(vector<int>& numbers)
 
 void BubbleSort(vector<int>& numbers)
 {
-	bool done = false;
-	while(!done)
-	{
-		done = true;
-		for(unsigned int index = 0; index < numbers.size() - 1; ++index)
-		{
-			if(numbers[index] > numbers[index + 1])
-			{
-				//swap index and next number
-				swap(&numbers[index], &numbers[index + 1]);
-				done = false;
-			}
-		}
-	}
+	unsigned int size = numbers.size();
+	for(unsigned int i = 0; i < size - 1; ++i)
+		for(unsigned int j = size - 1; j > i; --j)
+			if(numbers[j] < numbers[j - 1])
+				swap(&numbers[j], &numbers[j - 1]);
 }
 
 unsigned int findMax(vector<int>& numbers)
@@ -221,42 +212,22 @@ void CountSort(vector<int>& numbers)
 
 void InsertionSort(vector<int>& numbers)
 {
-	unsigned int i = 1;
-	unsigned int j;
 	unsigned int size = numbers.size();
-	while(i < size)
-	{
-		j = i;
-		while(j > 0 && numbers[j - 1] > numbers[j])
-		{
+	for(unsigned int i = 1; i < size; ++i)
+		for(unsigned int j = i; j > 0 && numbers[j] < numbers[j - 1]; --j)
 			swap(&numbers[j], &numbers[j - 1]);
-			--j;
-		}
-		++i;
-	}
-
-	i = j;
-	return;
 }
 
 void SelectionSort(vector<int>& numbers)
 {
-	unsigned int i, j, minIndex;
 	unsigned int size = numbers.size();
-
-	// One by one move boundary of unsorted subarray
-	for(i = 0; i < size - 1; i++)
+	for(unsigned int i = 0; i < size - 1; ++i)
 	{
-		// Find the minimum element in unsorted array
-		minIndex = i;
-		for(j = i + 1; j < size; ++j)
-		{
-			if(numbers[j] < numbers[minIndex])
-				minIndex = j;
-		}
-
-		// Swap the found minimum element with the first element
-		swap(&numbers[minIndex], &numbers[i]);
+		unsigned int lowIndex = i;
+		for(unsigned int j = size - 1; j > i; --j)
+			if(numbers[j] < numbers[lowIndex])
+				lowIndex = j;
+		swap(&numbers[i], &numbers[lowIndex]);
 	}
 }
 
