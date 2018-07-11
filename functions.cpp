@@ -247,6 +247,40 @@ void HeapSort(vector<int>& numbers)
 	}
 }
 
+inline int findpivot(vector<int>& numbers, int i, int j)
+{
+	return (i + j) / 2;
+}
+
+inline int partition(vector<int>& numbers, int l, int r, int& pivot)
+{
+	do
+	{	//move bounds inward until they meet
+		while(numbers[++l] < pivot) {};	//move l right
+		while((l < r) && pivot < numbers[--r]) {};	//move r left
+		swap(&numbers[l], &numbers[r]);
+	} while(l < r);
+	return l;
+}
+
+void qsort(vector<int>& numbers, int i, int j)
+{
+	if(j <= i)
+		return;	//don't sort 0 or 1 element
+	int pivotindex = findpivot(numbers, i, j);
+	swap(&numbers[pivotindex], &numbers[j]);	//put pivot at end
+	//k will be the first position in the right subarray
+	int k = partition(numbers, i - 1, j, numbers[j]);
+	swap(&numbers[k], &numbers[j]);
+	qsort(numbers, i, k - 1);
+	qsort(numbers, k + 1, j);
+}
+
+void QuickSort(vector<int>& numbers)
+{
+	qsort(numbers, 0, numbers.size() - 1);
+}
+
 void inssort2(vector<int>& numbers, unsigned int start, unsigned int size, unsigned int incr)
 {
 	for(unsigned int i = start + incr; i - start < size; i += incr)

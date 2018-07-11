@@ -11,6 +11,7 @@ void InsertionSort(vector<int>& numbers);
 void SelectionSort(vector<int>& numbers);
 void STLSort(vector<int>& numbers);
 void HeapSort(vector<int>& numbers);
+void QuickSort(vector<int>& numbers);
 void TreeSortIterative(vector<int>& numbers);
 void TreeSortRecursive(vector<int>& numbers);
 void ShellSort(vector<int>& numbers);
