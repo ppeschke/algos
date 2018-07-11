@@ -13,5 +13,6 @@ void STLSort(vector<int>& numbers);
 void TreeSortIterative(vector<int>& numbers);
 void TreeSortRecursive(vector<int>& numbers);
 void ShellSort(vector<int>& numbers);
+void MergeSort(vector<int>& numbers);
 bool inOrder(vector<int>& numbers);
 bool noVerification(vector<int>& numbers);

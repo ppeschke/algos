@@ -9,6 +9,7 @@ int main()
 	ts.addTest(Tester(&STLSort, "STL Sort", &inOrder));
 	ts.addTest(Tester(&CountSort, "Counting Sort", &inOrder));
 	ts.addTest(Tester(&ShellSort, "Shell Sort", &inOrder));
+	ts.addTest(Tester(&MergeSort, "Merge Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortRecursive, "Recursive Tree Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortIterative, "Iterative Tree Sort", &inOrder));
 	ts.addTest(Tester(&SelectionSort, "Selection Sort", &inOrder));
