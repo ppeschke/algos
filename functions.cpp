@@ -8,6 +8,7 @@
 
 #include "functions.h"
 #include "BinaryTree.h"
+#include "heap.h"
 
 void generateFile(string filename, unsigned int range, unsigned int count)
 {
@@ -236,6 +237,16 @@ void STLSort(vector<int>& numbers)
 	sort(numbers.begin(), numbers.end());
 }
 
+void HeapSort(vector<int>& numbers)
+{
+	heap h(numbers, numbers.size(), numbers.size());
+	unsigned int i = 0;
+	while(h.size() > 0)
+	{
+		numbers[i++] = h.removefirst();
+	}
+}
+
 void inssort2(vector<int>& numbers, unsigned int start, unsigned int size, unsigned int incr)
 {
 	for(unsigned int i = start + incr; i - start < size; i += incr)
@@ -265,7 +276,7 @@ void msort(vector<int>& numbers, int temp[], int left, int right)
 	msort(numbers, temp, left, mid);
 	msort(numbers, temp, mid + 1, right);
 	//do the merge operation	first copy two halves to temp
-	for(i = mid; i >= left; i--)
+	for(i = mid; i >= left; --i)
 		temp[i] = numbers[i];
 	for(j = 1; j <= right - mid; ++j)
 		temp[right - j + 1] = numbers[j + mid];
