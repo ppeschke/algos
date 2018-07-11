@@ -24,5 +24,6 @@ int main()
 
 	ts.RunTests();
 	ts.OutputTSVResults("results.tsv");
+	system("pause");
 	return 0;
 }

@@ -238,10 +238,9 @@ void STLSort(vector<int>& numbers)
 
 void inssort2(vector<int>& numbers, unsigned int start, unsigned int size, unsigned int incr)
 {
-	cout << "called inssort2 with: " << start << ' ' << size << ' ' << incr << endl;
 	for(unsigned int i = start + incr; i - start < size; i += incr)
-		for(unsigned int j = i; j >= incr && numbers[start + j] < numbers[start + j - incr]; j -= incr)
-			swap(&numbers[start + j], &numbers[start + j - incr]);
+		for(unsigned int j = i; j >= start + incr && numbers[j] < numbers[j - incr]; j -= incr)
+			swap(&numbers[j], &numbers[j - incr]);
 }
 
 void ShellSort(vector<int>& numbers)
@@ -255,7 +254,7 @@ void ShellSort(vector<int>& numbers)
 
 const int MSTHRESHOLD = 4;
 
-void msort(vector<int>& numbers, int temp[], unsigned int left, unsigned int right)
+void msort(vector<int>& numbers, int temp[], int left, int right)
 {
 	if((right - left) <= MSTHRESHOLD)
 	{	//small list
@@ -265,10 +264,11 @@ void msort(vector<int>& numbers, int temp[], unsigned int left, unsigned int rig
 	int i, j, k, mid = (left + right) / 2;
 	msort(numbers, temp, left, mid);
 	msort(numbers, temp, mid + 1, right);
-	//do the merge operation
-	for(i = mid; i >= left; --i)
-		for(j = i; j <= right - mid; ++j)
-			temp[right - j + 1] = numbers[j + mid];
+	//do the merge operation	first copy two halves to temp
+	for(i = mid; i >= left; i--)
+		temp[i] = numbers[i];
+	for(j = 1; j <= right - mid; ++j)
+		temp[right - j + 1] = numbers[j + mid];
 	//merge the sublists back to numbers
 	for(i = left, j = right, k = left; k <= right; ++k)
 		if(temp[i] < temp[j])
