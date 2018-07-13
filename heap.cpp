@@ -3,16 +3,15 @@
 #include <iostream>
 using namespace std;
 
-heap::heap(vector<int> h, int num, int max, bool (*c)(int, int))
+heap::heap(vector<int> h, int num, int max, bool(*c)(int, int))
 {
 	Heap = h;
 	n = num;
 	maxsize = max;
-	buildHeap();
-	for(int i : Heap)
-		cout << i << ' ';
-	cout << endl;
 	comp = c;
+
+
+	buildHeap();
 }
 
 
@@ -35,7 +34,7 @@ void heap::siftdown(int pos)
 		int rc = rightchild(pos);
 		if((rc < n) && comp(Heap[rc], Heap[j]))
 			j = rc;
-		if(comp(Heap[pos], Heap[j]))
+		if(!comp(Heap[pos], Heap[j]))
 			swap(pos, j);
 		pos = j;
 	}
