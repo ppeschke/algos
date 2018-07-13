@@ -1,12 +1,18 @@
 #include "heap.h"
 #include <cassert>
+#include <iostream>
+using namespace std;
 
-heap::heap(vector<int> h, int num, int max)
+heap::heap(vector<int> h, int num, int max, bool (*c)(int, int))
 {
 	Heap = h;
 	n = num;
 	maxsize = max;
 	buildHeap();
+	for(int i : Heap)
+		cout << i << ' ';
+	cout << endl;
+	comp = c;
 }
 
 
@@ -27,9 +33,9 @@ void heap::siftdown(int pos)
 	{
 		int j = leftchild(pos);
 		int rc = rightchild(pos);
-		if((rc < n) && Heap[rc] < Heap[j])
+		if((rc < n) && comp(Heap[rc], Heap[j]))
 			j = rc;
-		if(Heap[pos] > Heap[j])
+		if(comp(Heap[pos], Heap[j]))
 			swap(pos, j);
 		pos = j;
 	}
@@ -47,7 +53,7 @@ void heap::insert(int it)
 	int curr = n++;
 	Heap[curr] = it;	//start at end of heap
 	//now sift up until curr's parent < curr
-	while((curr != 0) && Heap[curr] < Heap[parent(curr)])
+	while((curr != 0) && comp(Heap[curr], Heap[parent(curr)]))
 	{
 		swap(curr, parent(curr));
 		curr = parent(curr);
@@ -71,7 +77,7 @@ int heap::remove(int pos)
 	else
 	{
 		swap(pos, --n);
-		while((pos != 0) && Heap[pos] < Heap[parent(pos)])
+		while((pos != 0) && comp(Heap[pos], Heap[parent(pos)]))
 		{
 			swap(pos, parent(pos));
 			pos = parent(pos);

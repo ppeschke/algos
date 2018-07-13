@@ -18,6 +18,7 @@ int main()
 	debugList.push_back(2);
 	debugList.push_back(1);
 	ts.addData(DataItem(debugList, "Debug Numbers"));
+	ts.addTest(Tester(&BinSort, "Bin Sort", &inOrder));
 #endif
 #ifndef DEBUG
 	//NORMAL TESTING

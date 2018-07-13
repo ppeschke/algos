@@ -5,6 +5,7 @@
 #include <time.h>
 #include <algorithm>
 #include <stack>
+#include <list>
 
 #include "functions.h"
 #include "BinaryTree.h"
@@ -211,6 +212,17 @@ void CountSort(vector<int>& numbers)
 	delete[] counts;
 }
 
+void BinSort(vector<int>& numbers)
+{
+	// unsigned int maxKey = findMax(numbers);
+	// list<int> B[maxKey];
+	// int item;
+	// for(unsigned int i = 0; i < numbers.size(); ++i)
+	// 	B[numbers[i]].push_back(numbers[i]);
+	// for(unsigned int i = 0; i < maxKey; ++i)
+	// 	for(B[i].
+}
+
 void InsertionSort(vector<int>& numbers)
 {
 	unsigned int size = numbers.size();
@@ -239,7 +251,7 @@ void STLSort(vector<int>& numbers)
 
 void HeapSort(vector<int>& numbers)
 {
-	heap h(numbers, numbers.size(), numbers.size());
+	heap h(numbers, numbers.size(), numbers.size(), &lt);
 	unsigned int i = 0;
 	while(h.size() > 0)
 	{
@@ -343,4 +355,14 @@ bool inOrder(vector<int>& numbers)
 bool noVerification(vector<int>& numbers)
 {
 	return true;
+}
+
+bool gt(int a, int b)
+{
+	return a > b;
+}
+
+bool lt(int a, int b)
+{
+	return a < b;
 }

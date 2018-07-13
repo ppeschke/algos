@@ -5,7 +5,7 @@ using namespace std;
 class heap
 {
 public:
-	heap(vector<int> h, int num, int max);
+	heap(vector<int> h, int num, int max, bool(*c)(int, int));
 	~heap();
 
 	int size() { return n; }
@@ -25,5 +25,6 @@ private:
 	vector<int> Heap;
 	int maxsize;
 	int n;
+	bool (*comp)(int, int);
 };
 
