@@ -10,7 +10,7 @@ int main()
 #ifdef DEBUG
 	//DEBUG TESTING
 	vector<int> debugList;
-	debugList.push_back(7);
+	debugList.push_back(11);
 	debugList.push_back(6);
 	debugList.push_back(5);
 	debugList.push_back(4);
@@ -18,7 +18,6 @@ int main()
 	debugList.push_back(2);
 	debugList.push_back(1);
 	ts.addData(DataItem(debugList, "Debug Numbers"));
-	ts.addTest(Tester(&BinSort, "Bin Sort", &inOrder));
 #endif
 #ifndef DEBUG
 	//NORMAL TESTING
@@ -28,6 +27,7 @@ int main()
 	ts.addTest(Tester(&ShellSort, "Shell Sort", &inOrder));
 	ts.addTest(Tester(&MergeSort, "Merge Sort", &inOrder));
 	ts.addTest(Tester(&HeapSort, "Heap Sort", &inOrder));
+	ts.addTest(Tester(&RadixSort, "Radix Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortRecursive, "Recursive Tree Sort", &inOrder));
 	ts.addTest(Tester(&TreeSortIterative, "Iterative Tree Sort", &inOrder));
 	ts.addTest(Tester(&SelectionSort, "Selection Sort", &inOrder));

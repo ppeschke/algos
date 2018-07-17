@@ -7,7 +7,7 @@ void outputNumbers(vector<int>& v);
 void writeNumbers(vector<int>& v);
 void BubbleSort(vector<int>& numbers);
 void CountSort(vector<int>& numbers);
-void BinSort(vector<int>& numbers);
+void RadixSort(vector<int>& numbers);
 void InsertionSort(vector<int>& numbers);
 void SelectionSort(vector<int>& numbers);
 void STLSort(vector<int>& numbers);

@@ -212,15 +212,47 @@ void CountSort(vector<int>& numbers)
 	delete[] counts;
 }
 
-void BinSort(vector<int>& numbers)
+void rsort(vector<int>& a, int b[], int n, int digits, int radix, int bins[]);
+void RadixSort(vector<int>& numbers)
 {
-	// unsigned int maxKey = findMax(numbers);
-	// list<int> B[maxKey];
-	// int item;
-	// for(unsigned int i = 0; i < numbers.size(); ++i)
-	// 	B[numbers[i]].push_back(numbers[i]);
-	// for(unsigned int i = 0; i < maxKey; ++i)
-	// 	for(B[i].
+	int* b = new int[numbers.size()];
+	int bins[10];
+	rsort(numbers, b, numbers.size(), log10(findMax(numbers)) + 1, 10, bins);
+	delete[] b;
+}
+
+void rsort(vector<int>& a, int b[], int n, int digits, int radix, int bins[])
+{
+	int j;
+	for(int i = 0, rtoi = 1; i < digits; ++i, rtoi *= radix)	//for each digit
+	{
+		for(j = 0; j < radix; ++j)
+		{
+			bins[j] = 0;	//initialize count
+		}
+
+		//count the number of records for each bin on this phase
+		for(j = 0; j < n; ++j)
+		{
+			++bins[(a[j] / rtoi) % radix];
+		}
+
+		//index b: count[j] will be index for last slot of bin j
+		for(j = 1; j < radix; ++j)
+		{
+			bins[j] = bins[j - 1] + bins[j];
+		}
+
+		//put records into bins, work from bottom of each bin.
+		//since bins fill from bottom, j counts downwards
+		for(j = n - 1; j >= 0; --j)
+		{
+			b[--bins[(a[j] / rtoi) % radix]] = a[j];
+		}
+
+		for(j = 0; j < n; ++j)
+			a[j] = b[j];		//copy b back to a
+	}
 }
 
 void InsertionSort(vector<int>& numbers)
